@@ -137,7 +137,7 @@ class ETSF:
             raise Exception('Number of bytes: {0} is too large.'.format(numbytes))
         # chug through individual input fields
         for i, val in enumerate(self.w):
-            tau = self.tau[i] + ell*self.m.vg(val) + (L-ell)*self.m.vg(self.wTSF)
+            tau = self.tau[i] + ell/self.m.vg(val) + (L-ell)/self.m.vg(self.wTSF)
             # phase factor and evnvelope
             self.Ematerial *= np.exp(1j * val * ell * self.m.vp(val)**-1) * gauss(t, tau=tau, s=self.s[i])
         # final phase factor
@@ -182,11 +182,11 @@ class ETSF:
                         w3 = w2
                         wTSF = w1 + 2*w2
                         # envelope and phase factor
-                        tau = self.tau[0] + ell*self.m.vg(w1) + (L-ell)*self.m.vg(wTSF)
+                        tau = self.tau[0] + ell/self.m.vg(w1) + (L-ell)/self.m.vg(wTSF)
                         E4 = gauss(t, tau=tau, s=self.s[0]) * np.exp(1j * w1 * ell * self.m.vp(w1)**-1)
-                        tau = self.tau[1] + ell*self.m.vg(w2) + (L-ell)*self.m.vg(wTSF)
+                        tau = self.tau[1] + ell/self.m.vg(w2) + (L-ell)/self.m.vg(wTSF)
                         E4 *= gauss(t, tau=tau, s=self.s[1]) * np.exp(1j * w2 * ell * self.m.vp(w2)**-1)
-                        tau = self.tau[2] + ell*self.m.vg(w3) + (L-ell)*self.m.vg(wTSF) 
+                        tau = self.tau[2] + ell/self.m.vg(w3) + (L-ell)/self.m.vg(wTSF) 
                         E4 *= gauss(t, tau=tau, s=self.s[2]) * np.exp(1j * w3 * ell * self.m.vp(w3)**-1) * np.exp(1j * wTSF * (L-ell) * self.m.vp(wTSF)**-1)
                         # collapse/integrate along ell
                         E4 = np.sum(E4, axis=1)
