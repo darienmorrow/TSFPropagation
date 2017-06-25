@@ -60,19 +60,19 @@ def gauss(t, tau, s):
     s : float
         width        
     """
-    return np.exp(-((t-tau)/s)**2)
+    return np.exp(-((t-tau)/(np.sqrt(2)*s))**2)
 
 def s_FWHM(s):
     """
     Given the width (simga) of a Guassian, returns FWHM
     """
-    return 2*np.sqrt(np.log(2))*s
+    return 2*np.sqrt(2*np.log(2))*s
     
 def FWHM_s(FWHM):
     """
     Given the FWHM of a Gaussian, returns the width (sigma)
     """
-    return FWHM/(2*np.sqrt(np.log(2)))
+    return FWHM/(2*np.sqrt(2*np.log(2)))
 
 def collapse_t(p, key='E'):
     """

@@ -24,11 +24,15 @@ class Material:
     def __init__(self, identity, verbose=True, interp_kind='cubic'):  
         self.identity = identity
         path = os.path.dirname(__file__)
+        # TODO remove these lines of code due to '/n' problem
+        """
         # get list of available materials
         p =  os.path.join(path, 'materials', 'materials.txt')
         materials = open(p).readlines()
+        print(materials)
         if identity not in materials:
             raise Exception('material not in catalog') 
+        """
         # get refractive index data
         p = os.path.join(path, 'materials', identity + '.csv')
         self.data = np.genfromtxt(p, delimiter=',', skip_header = 3, unpack=True) 
